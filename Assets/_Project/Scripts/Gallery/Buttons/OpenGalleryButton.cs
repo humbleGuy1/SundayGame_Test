@@ -7,7 +7,7 @@ namespace SunGameStudio.Gallery
     {
         [SerializeField] private Button _button;
 
-        private void OnEnable() => _button.onClick.AddListener(SceneLoader.Instance.LoadGalleryScene);
+        private void Start() => _button.onClick.AddListener(SceneLoader.Instance.LoadGalleryScene);
 
         private void OnDisable() => _button.onClick.RemoveListener(SceneLoader.Instance.LoadGalleryScene);
     }
