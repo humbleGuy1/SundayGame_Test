@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,13 +14,6 @@ namespace SunGameStudio.Gallery
             _button.onClick.AddListener(StoreImage);
         }
 
-        private void Start()
-        {
-            Disable();
-            StartCoroutine(Wait());
-        }
-
-
         private void OnDisable()
         {
             _button.onClick.RemoveListener(SceneLoader.Instance.LoadViewScene);
@@ -29,25 +21,6 @@ namespace SunGameStudio.Gallery
         }
 
         private void StoreImage() => ImageStorage.SetSelectedImage(_image.View);
-
-        private void Disable()
-        {
-            _button.interactable = false;
-            _button.enabled = false;
-        }
-
-        private void Enable()
-        {
-            _button.enabled = true;
-            _button.interactable = true;
-        }
-
-        private IEnumerator Wait()
-        {
-            yield return new WaitUntil(() => _image.IsLoaded);
-
-            Enable();
-        }
     }
 }
 
