@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,15 +20,16 @@ namespace SunGameStudio.Gallery
 
         private int _index = 1;
         private int _initialCount;
+        private float _previousScrollPosition = 1;
 
         private readonly int _screenHeight = Screen.height;
 
         private const string Url = "http://data.ikppbb.com/test-task-unity-data/pics/";
         private const string JpjFormat = ".jpg";
 
-        //private void OnEnable() => _scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
+        private void OnEnable() => _scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
 
-        //private void OnDisable() => _scrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
+        private void OnDisable() => _scrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
 
         private void Start()
         {
@@ -79,14 +79,17 @@ namespace SunGameStudio.Gallery
 
         private void OnScrollValueChanged(Vector2 scrollPosition)
         {
-            float normalizedY = (scrollPosition.y - _scrollThreshold) / (1 - _scrollThreshold);
-            print(normalizedY + " " + _index / (float)_totalImages);
+            if (_index > _totalImages)
+                _scrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
 
-            if (normalizedY >= 0 && normalizedY <= 1)
+            float currentScrollPosition = scrollPosition.y;
+            
+            if (currentScrollPosition < _previousScrollPosition)
             {
-                if (normalizedY >= (_index / (float)_totalImages))
+                if (Mathf.Abs(_previousScrollPosition - currentScrollPosition) >= _scrollThreshold)
                 {
                     LoadImage(_index);
+                    _previousScrollPosition = currentScrollPosition;
                 }
             }
         }

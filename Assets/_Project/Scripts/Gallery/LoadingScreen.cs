@@ -21,7 +21,7 @@ namespace SunGameStudio.Gallery
         }
 
         public void Hide() => StartCoroutine(WaitBeforeFade());
-
+        
         private IEnumerator WaitBeforeFade()
         {
             float delay = _fillTime + 2f;
