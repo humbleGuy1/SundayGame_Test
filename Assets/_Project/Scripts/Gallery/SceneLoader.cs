@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 namespace SunGameStudio.Gallery
 {
@@ -29,21 +30,16 @@ namespace SunGameStudio.Gallery
             }
         }
 
-        public void LoadGalleryScene()
-        {
-            LoadScene(Gallery);
-            _orientationSwitcher.SetPortrait();
-        }
+        public void LoadGalleryScene() => 
+            LoadScene(Gallery, _orientationSwitcher.SetPortrait);
 
-        public void LoadViewScene()
-        {
-            LoadScene(View);
-            _orientationSwitcher.SetAuto();
-        }
+        public void LoadViewScene() => 
+            LoadScene(View, _orientationSwitcher.SetAuto);
 
-        private void LoadScene(string name) => StartCoroutine(LoadSceneAsync(name));
+        private void LoadScene(string name, Action onLoaded) => 
+            StartCoroutine(Load(name, onLoaded));
 
-        private IEnumerator LoadSceneAsync(string name)
+        private IEnumerator Load(string name, Action onLoaded)
         {
             _loadingOperation = SceneManager.LoadSceneAsync(name);
 
@@ -53,6 +49,7 @@ namespace SunGameStudio.Gallery
 
             yield return waitUntilLoadingIsFinished;
 
+            onLoaded?.Invoke();
             _loadingScreen.Hide();
         }
     }
