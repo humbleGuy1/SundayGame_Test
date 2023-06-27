@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
 namespace SunGameStudio.Gallery
 {
     public class InputChecker : MonoBehaviour
     {
-        [SerializeField] private UnityEvent Action;
-
         private IUserInput _userInput;
 
         private void Start()
@@ -28,7 +25,7 @@ namespace SunGameStudio.Gallery
 
             if (_userInput.BackActionActivated)
             {
-                Action.Invoke();
+                SceneLoader.Instance.LoadGalleryScene();
             }
         }
 
