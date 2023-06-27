@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -13,8 +14,10 @@ namespace SunGameStudio.Gallery
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private Texture2D _errorTexture;
         [SerializeField] private GridLayoutGroup _layoutGroup;
-        [SerializeField] private int _totalImages;
-        [SerializeField] private float _scrollThreshold;
+        [SerializeField, Min(0)] private int _totalImages;
+        [SerializeField, Min(0)] private float _scrollThreshold;
+
+        private List<ImagePrefab> _prefabs = new();
 
         private int _index = 1;
         private int _initialCount;
@@ -24,30 +27,39 @@ namespace SunGameStudio.Gallery
         private const string Url = "http://data.ikppbb.com/test-task-unity-data/pics/";
         private const string JpjFormat = ".jpg";
 
-        private void OnEnable() => _scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
+        //private void OnEnable() => _scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
 
-        private void OnDisable() => _scrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
+        //private void OnDisable() => _scrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
 
-        private void Start() => LoadInitialImages();
+        private void Start()
+        {
+            SpawnPrefabs();
+            LoadInitialImages();
+        }
+
+        private void SpawnPrefabs()
+        {
+            for (int i = 0; i < _totalImages; i++)
+            {
+                _prefabs.Add(SpawnImagePrefab());
+            }
+        }
 
         private void LoadInitialImages()
         {
             _initialCount = CalculateInitialCount();
-            print(_initialCount);
 
             for (int i = 0; i < _initialCount; i++)
             {
-                LoadImage(_index, SpawnImagePrefab());
+                LoadImage(_index);
             }
         }
 
-        private void LoadImage(int imageIndex, ImagePrefab image)
+        private void LoadImage(int index)
         {
-            string imageUrl = Url + imageIndex + JpjFormat;
+            string imageUrl = Url + index + JpjFormat;
 
-            Image view = image.View;
-
-            StartCoroutine(LoadImageCoroutine(imageUrl, view));
+            StartCoroutine(LoadImageCoroutine(imageUrl, _prefabs[index - 1]));
             _index++;
         }
 
@@ -74,12 +86,12 @@ namespace SunGameStudio.Gallery
             {
                 if (normalizedY >= (_index / (float)_totalImages))
                 {
-                    LoadImage(_index, SpawnImagePrefab());
+                    LoadImage(_index);
                 }
             }
         }
 
-        private IEnumerator LoadImageCoroutine(string imageUrl, Image view)
+        private IEnumerator LoadImageCoroutine(string imageUrl, ImagePrefab prefab)
         {
             UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(imageUrl);
 
@@ -88,11 +100,12 @@ namespace SunGameStudio.Gallery
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
                 Texture2D texture = ((DownloadHandlerTexture)webRequest.downloadHandler).texture;
-                view.sprite = CreateSprite(texture);
+                prefab.View.sprite = CreateSprite(texture);
+                prefab.MakeInteractable();
             }
             else
             {
-                view.sprite = CreateSprite(_errorTexture);
+                prefab.View.sprite = CreateSprite(_errorTexture);
             }
         }
 

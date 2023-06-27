@@ -20,6 +20,10 @@ namespace SunGameStudio.Gallery
             _button.onClick.RemoveListener(StoreImage);
         }
 
+        public void Disable() => _button.interactable = false;
+
+        public void Enable() => _button.interactable = true;
+
         private void StoreImage() => ImageStorage.SetSelectedImage(_image.View);
     }
 }
