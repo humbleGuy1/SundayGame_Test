@@ -25,13 +25,13 @@ namespace SunGameStudio.Gallery
         private void EnableFitMode()
         {
             _aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
-            _text.text = "Fit";
+            _text.text = "Fit Mode";
         }
 
         private void EnableEnvelopeMode()
         {
             _aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-            _text.text = "Envelope";
+            _text.text = "Envelope Mode";
         }
     }
 }
