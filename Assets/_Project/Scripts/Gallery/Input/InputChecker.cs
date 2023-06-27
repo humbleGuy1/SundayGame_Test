@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace SunGameStudio.Gallery
 {
     public class InputChecker : MonoBehaviour
     {
+        [SerializeField] private UnityEvent Action;
+
         private IUserInput _userInput;
 
         private void Start()
@@ -25,14 +28,14 @@ namespace SunGameStudio.Gallery
 
             if (_userInput.BackActionActivated)
             {
-                SceneLoader.Instance.LoadGalleryScene();
+                Action.Invoke();
             }
         }
 
-        private bool IsAndroid() => 
+        private bool IsAndroid() =>
             Application.platform == RuntimePlatform.Android;
 
-        private bool IsIPhone() => 
+        private bool IsIPhone() =>
             Application.platform == RuntimePlatform.IPhonePlayer;
     }
 }

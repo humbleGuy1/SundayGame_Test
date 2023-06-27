@@ -14,6 +14,7 @@ namespace SunGameStudio.Gallery
 
         private const string Gallery = "Gallery";
         private const string View = "View";
+        private const string Menu = "Menu";
 
         public static SceneLoader Instance;
 
@@ -36,7 +37,10 @@ namespace SunGameStudio.Gallery
         public void LoadViewScene() => 
             LoadScene(View, _orientationSwitcher.SetAuto);
 
-        private void LoadScene(string name, Action onLoaded) => 
+        public void LoadMenuScene() =>
+            LoadScene(Menu);
+
+        private void LoadScene(string name, Action onLoaded = default) => 
             StartCoroutine(Load(name, onLoaded));
 
         private IEnumerator Load(string name, Action onLoaded)

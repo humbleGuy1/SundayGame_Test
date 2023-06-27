@@ -888,7 +888,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 100
     m_Right: 0
-    m_Top: 100
+    m_Top: 150
     m_Bottom: 100
   m_ChildAlignment: 0
   m_StartCorner: 0
