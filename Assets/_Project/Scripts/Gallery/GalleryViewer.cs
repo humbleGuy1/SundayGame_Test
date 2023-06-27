@@ -98,7 +98,9 @@ namespace SunGameStudio.Gallery
 
         private Sprite CreateSprite(Texture2D texture)
         {
-            return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+            float offset = 0.5f;
+
+            return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * offset);
         }
     }
 }
