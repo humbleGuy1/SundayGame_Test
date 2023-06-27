@@ -1,10 +1,15 @@
 using UnityEngine;
 
-public class OrientationSwitcher : MonoBehaviour
+namespace SunGameStudio.Gallery
 {
-    public void SetPortrait() => 
-        Screen.orientation = ScreenOrientation.Portrait;
+    public class OrientationSwitcher : MonoBehaviour
+    {
+        public void SetPortrait() =>
+            Screen.orientation = ScreenOrientation.Portrait;
 
-    public void SetAuto() => 
-        Screen.orientation = ScreenOrientation.AutoRotation;
+        public void SetAuto() =>
+            Screen.orientation = ScreenOrientation.AutoRotation;
+    }
 }
+
+
