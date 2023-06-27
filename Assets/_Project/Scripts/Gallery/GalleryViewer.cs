@@ -16,20 +16,21 @@ namespace SunGameStudio.Gallery
         [SerializeField, Min(0)] private int _totalImages;
         [SerializeField, Min(0)] private float _scrollThreshold;
 
-        private List<ImagePrefab> _prefabs = new();
-
         private int _index = 1;
         private int _initialCount;
         private float _previousScrollPosition = 1;
 
-        private readonly int _screenHeight = Screen.height;
+        private readonly Factory _factory = new();
+        private readonly List<ImagePrefab> _prefabs = new();
 
         private const string Url = "http://data.ikppbb.com/test-task-unity-data/pics/";
         private const string JpjFormat = ".jpg";
 
-        private void OnEnable() => _scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
+        private void OnEnable() => 
+            _scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
 
-        private void OnDisable() => _scrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
+        private void OnDisable() => 
+            _scrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
 
         private void Start()
         {
@@ -41,7 +42,7 @@ namespace SunGameStudio.Gallery
         {
             for (int i = 0; i < _totalImages; i++)
             {
-                _prefabs.Add(SpawnImagePrefab());
+                _prefabs.Add(_factory.CreateObjectOfType(_imagePrefab, _parentGrid));
             }
         }
 
@@ -52,6 +53,7 @@ namespace SunGameStudio.Gallery
             for (int i = 0; i < _initialCount; i++)
             {
                 LoadImage(_index);
+                _index++;
             }
         }
 
@@ -60,21 +62,15 @@ namespace SunGameStudio.Gallery
             string imageUrl = Url + index + JpjFormat;
 
             StartCoroutine(LoadImageCoroutine(imageUrl, _prefabs[index - 1]));
-            _index++;
         }
 
         private int CalculateInitialCount()
         {
             int imageHeight = Mathf.RoundToInt(_imagePrefab.Frame.rect.height);
-            int rowsPerScreen = Mathf.FloorToInt((_screenHeight - _layoutGroup.padding.top) /
+            int rowsPerScreen = Mathf.FloorToInt((Screen.height - _layoutGroup.padding.top) /
                 (imageHeight + _layoutGroup.spacing.y));
 
             return _layoutGroup.constraintCount * rowsPerScreen;
-        }
-
-        private ImagePrefab SpawnImagePrefab()
-        {
-            return Instantiate(_imagePrefab, _parentGrid);
         }
 
         private void OnScrollValueChanged(Vector2 scrollPosition)
@@ -89,6 +85,7 @@ namespace SunGameStudio.Gallery
                 if (Mathf.Abs(_previousScrollPosition - currentScrollPosition) >= _scrollThreshold)
                 {
                     LoadImage(_index);
+                    _index++;
                     _previousScrollPosition = currentScrollPosition;
                 }
             }
@@ -103,20 +100,13 @@ namespace SunGameStudio.Gallery
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
                 Texture2D texture = ((DownloadHandlerTexture)webRequest.downloadHandler).texture;
-                prefab.View.sprite = CreateSprite(texture);
+                prefab.View.sprite = _factory.CreateSprite(texture);
                 prefab.MakeInteractable();
             }
             else
             {
-                prefab.View.sprite = CreateSprite(_errorTexture);
+                prefab.View.sprite = _factory.CreateSprite(_errorTexture);
             }
-        }
-
-        private Sprite CreateSprite(Texture2D texture)
-        {
-            float offset = 0.5f;
-
-            return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * offset);
         }
     }
 }
