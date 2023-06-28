@@ -5,7 +5,9 @@ namespace SunGameStudio.RoatatingObject
 {
     public class Rotator : MonoBehaviour
     {
-        [SerializeField] private float _x, _y, _z;
+        [SerializeField] private int _x;
+        [SerializeField] private int _y;
+        [SerializeField] private int _z;
         [SerializeField] private float _duration;
 
         private void Start()
@@ -16,4 +18,5 @@ namespace SunGameStudio.RoatatingObject
         }
     }
 }
+
 

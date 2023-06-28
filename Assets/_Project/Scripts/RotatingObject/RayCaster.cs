@@ -37,6 +37,7 @@ namespace SunGameStudio.RoatatingObject
                 if (hit.collider.gameObject.TryGetComponent(out IClickable clickable))
                 {
                     clickable.OnClick();
+
                     StartCoroutine(CountCooldown());
                 }
             }
