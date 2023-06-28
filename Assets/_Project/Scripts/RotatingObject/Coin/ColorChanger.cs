@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SunGameStudio.RoatatingObject
 {
     public class ColorChanger : MonoBehaviour
     {
         [SerializeField] private MeshRenderer _renderer;
+        [SerializeField] private List<ParticleSystem> _effects;
 
         private readonly float _saturation = 1f;
         private readonly float _birghtness = 1f;
@@ -12,6 +14,11 @@ namespace SunGameStudio.RoatatingObject
         public void ChangeColor()
         {
             _renderer.material.color = Randomazie();
+
+            foreach (var effect in _effects)
+            {
+                effect.startColor = _renderer.material.color;
+            }
         }
 
         private Color Randomazie()
