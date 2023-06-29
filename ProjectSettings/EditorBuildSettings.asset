@@ -6,14 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/Scenes/Gallery/Menu.unity
-    guid: 571af71f0b60f454e8f7b04c0b887668
-  - enabled: 1
-    path: Assets/_Project/Scenes/Gallery/Gallery.unity
-    guid: 8c04a7fd6aec05c46aad60e400314561
-  - enabled: 1
-    path: Assets/_Project/Scenes/Gallery/View.unity
-    guid: e00178a8582c34347a0d0ac7a55188cd
+    path: Assets/_Project/Scenes/RotatingObject.unity
+    guid: 2f4fdb5a181d759438b7daa52dfc7971
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 43c5be4f493e3be4bbee6c5fde0a835a, type: 2}
