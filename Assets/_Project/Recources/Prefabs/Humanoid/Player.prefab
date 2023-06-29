@@ -1454,7 +1454,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5818593812298102829}
+  - component: {fileID: 7965811684865752435}
   - component: {fileID: 6731226019007007452}
+  - component: {fileID: 7266680693729317767}
   - component: {fileID: 961758157449542419}
   - component: {fileID: 5446947025034131224}
   - component: {fileID: 6284057785771302852}
@@ -1483,6 +1485,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7965811684865752435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625952368932430487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a736e7d7c4ce5041bd63b52aca6ea22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6731226019007007452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1497,6 +1511,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   _characterController: {fileID: 5446947025034131224}
+  _input: {fileID: 7965811684865752435}
+  _animator: {fileID: 961758157449542419}
+--- !u!114 &7266680693729317767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625952368932430487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f2375c984faf44a89ea8d2a6fab851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _range: 2
+  _jumpPower: 1.5
+  _duration: 0.5
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _playerInput: {fileID: 7965811684865752435}
+  _playerAnimator: {fileID: 961758157449542419}
 --- !u!114 &961758157449542419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,7 +1567,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6284057785771302852}
-  _characterController: {fileID: 5446947025034131224}
 --- !u!143 &5446947025034131224
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1522,7 +1578,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.8
+  m_Height: 1.71
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3

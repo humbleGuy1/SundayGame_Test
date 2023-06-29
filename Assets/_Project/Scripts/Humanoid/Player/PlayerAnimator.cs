@@ -5,14 +5,14 @@ namespace SunGameStudio.Humanoid
     public class PlayerAnimator : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
-        [SerializeField] private CharacterController _characterController;
 
         private readonly int SpeedHash = Animator.StringToHash("Speed");
+        private readonly int JumpHash = Animator.StringToHash("Jump");
 
-        private void Update()
-        {
-            _animator.SetFloat(SpeedHash, _characterController.velocity.magnitude);
-        }
+        public void PlayJump() => _animator.SetTrigger(JumpHash);
+
+        public void PlayMove(float speed) =>
+            _animator.SetFloat(SpeedHash, speed);
     }
 }
 
