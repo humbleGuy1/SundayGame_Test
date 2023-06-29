@@ -19,7 +19,7 @@ namespace SunGameStudio.RoatatingObject
             _clickCounter.ValueReached += Move;
 
         private void OnDisable() =>
-            _clickCounter.ValueReached -= IncreaseScale;
+            _clickCounter.ValueReached -= ChangeScale;
 
         public void Move()
         {
@@ -29,14 +29,14 @@ namespace SunGameStudio.RoatatingObject
             tween.onComplete += _dust.Stop;
 
             _clickCounter.ValueReached -= Move;
-            _clickCounter.ValueReached += IncreaseScale;
+            _clickCounter.ValueReached += ChangeScale;
         }
 
-        public void IncreaseScale()
+        public void ChangeScale()
         {
             if (transform.localScale.x >= _growLimit)
             {
-                _clickCounter.ValueReached -= IncreaseScale;
+                _clickCounter.ValueReached -= ChangeScale;
                 return;
             }
 
