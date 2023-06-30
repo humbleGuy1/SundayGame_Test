@@ -9,6 +9,7 @@ namespace SunGameStudio.Humanoid
 
         private readonly int SpeedHash = Animator.StringToHash("Speed");
         private readonly int JumpHash = Animator.StringToHash("Jump");
+        private readonly int AimHash = Animator.StringToHash("IsAiming");
 
         public event Action<int> StepDone;
 
@@ -17,8 +18,14 @@ namespace SunGameStudio.Humanoid
         public void PlayMove(float speed) =>
             _animator.SetFloat(SpeedHash, speed);
 
+        public void PlayAiming() => 
+            _animator.SetBool(AimHash, true);
+
+        public void StopAiming() => 
+            _animator.SetBool(AimHash, false);
+
         //Animation Event
-        public void FootStepEvent(int footNumber) => 
+        private void FootStepEvent(int footNumber) => 
             StepDone?.Invoke(footNumber);
     }
 }

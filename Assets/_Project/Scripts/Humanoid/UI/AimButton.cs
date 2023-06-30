@@ -1,9 +1,9 @@
 ﻿namespace SunGameStudio.Humanoid
 {
-    public class FireButton : PlayerActionButton
+    public class AimButton : PlayerActionButton
     {
         protected override void Act() => 
-            _mediator.PlayerShoot();
+            _mediator.SwitchAim();
     }
 }
 
