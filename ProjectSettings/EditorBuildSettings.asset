@@ -6,8 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/Scenes/RotatingObject.unity
-    guid: 2f4fdb5a181d759438b7daa52dfc7971
+    path: Assets/_Project/Scenes/Humanoid.unity
+    guid: 23610937c816a3041a46b02cf21b5ebf
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 78afc20a7b301bb4590884623ae6fe46,
+      type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 43c5be4f493e3be4bbee6c5fde0a835a, type: 2}
