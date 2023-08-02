@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SunGameStudio.RoatatingObject
@@ -7,9 +8,9 @@ namespace SunGameStudio.RoatatingObject
     {
         [SerializeField] private MeshRenderer _renderer;
         [SerializeField] private List<ParticleSystem> _effects;
-
-        private readonly float _saturation = 1f;
-        private readonly float _birghtness = 1f;
+        [Space(20f)]
+        [ShowInInspector, ReadOnly] private readonly float _saturation = 1f;
+        [ShowInInspector, ReadOnly] private readonly float _birghtness = 1f;
 
         public void ChangeColor()
         {
